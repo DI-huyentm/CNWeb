@@ -6,7 +6,7 @@ import { toast } from "react-hot-toast";
 import {
   getAllNotifications,
   deleteAllNotifications,
-} from "../services/notifications/notificationAPI";
+} from "../services/notifications/notificationAPI.js";
 import { getAllChatMessages, getUsersByIds } from "../services/chats/chatAPI";
 
 const SocketContext = createContext();

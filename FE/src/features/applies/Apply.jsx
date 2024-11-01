@@ -22,7 +22,7 @@ import { useApplies } from "./useApplies.js";
 import { useResumes } from "../resumes/useResumes";
 import TitleText from "../../ui/sharedComponents/TitleText";
 import { useSocket } from "../../contexts/SocketContext.jsx";
-import { createNewNotification } from "../../services/notifications/notificationAPI";
+import { createNewNotification } from "../../services/notifications/notificationAPI.js/index.js";
 import ApplyResponseDialog from "../../ui/sharedComponents/ApplyResponseDialog.jsx";
 import ResumesTable from "../resumes/ResumesTable";
 import toast from "react-hot-toast";

@@ -1,27 +1,23 @@
 module.exports = (sequelize, DataTypes, Model) => {
-  class JobImage extends Model {}
-  JobImage.init(
+  class Tag extends Model {}
+  Tag.init(
     {
       id: {
         type: DataTypes.INTEGER,
         autoIncrement: true,
         primaryKey: true,
       },
-      job_id: {
-        type: DataTypes.INTEGER,
-        allowNull: false,
-      },
-      image: {
+      tag: {
         type: DataTypes.STRING,
         allowNull: false,
+        unique: true,
       },
     },
     {
       sequelize,
-      modelName: "JobImage",
-      timestamps: false,
-      tableName: "job_images",
+      modelName: "Tag",
+      tableName: "tags",
     }
   );
-  return JobImage;
+  return Tag;
 };

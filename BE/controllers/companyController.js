@@ -51,29 +51,6 @@ class CompanyController {
     });
   }
 
-  async getCompanyComments(req, res, next) {
-    const { id } = req.params;
-    const comments = await this.companyService.getCompanyComments(id);
-    if (!comments.length) return next(new AppError("No comments found", 404));
-
-    return res.status(200).json({
-      status: "success",
-      data: { comments },
-    });
-  }
-
-  async createCompanyComment(req, res, next) {
-    const commentData = req.body;
-    const newReaction = await this.companyService.createCompanyComment(
-      commentData
-    );
-
-    res.status(201).json({
-      status: "success",
-      data: { reaction: newReaction },
-    });
-  }
-
   async importCompaniesToDB(req, res, next) {
     // Implement import logic if needed
     res.status(501).json({

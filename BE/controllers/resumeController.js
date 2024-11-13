@@ -1,3 +1,6 @@
+const catchAsync = require("../utils/catchAsync");
+const AppError = require("../utils/appError");
+const resumeService = require("../services/resumeService");
 
 class ResumeController {
   constructor() {

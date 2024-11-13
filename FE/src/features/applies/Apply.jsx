@@ -24,7 +24,7 @@ import TitleText from "../../ui/sharedComponents/TitleText";
 import { useSocket } from "../../contexts/SocketContext";
 import { createNewNotification } from "../../services/notifications/notificationAPI";
 import ApplyResponseDialog from "../../ui/sharedComponents/ApplyResponseDialog";
-import ResumesTable from "../resumes/ResumesTable.jsx/index";
+import ResumesTable from "../resumes/ResumesTable";
 import toast from "react-hot-toast";
 
 function Apply({ job, currentUser, token, isAuthenticated }) {

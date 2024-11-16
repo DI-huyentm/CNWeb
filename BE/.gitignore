@@ -1,0 +1,57 @@
+# Environment variables
+*.env
+.DS_Store
+# Logs
+logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Dependency directories
+node_modules/
+jspm_packages/
+
+# Build output
+dist/
+build/
+coverage/
+*.tsbuildinfo
+
+# Temporary files
+.tmp/
+temp/
+tmp/
+.DS_Store
+Thumbs.db
+
+# Testing
+coverage/
+.nyc_output/
+
+# IDEs and editors
+.idea/
+.vscode/
+*.swp
+
+# Optional npm cache directory
+.npm/
+
+# Yarn integrity and lock files
+.yarn-integrity
+.yarn/
+.pnp.*
+
+# ESLint cache
+.eslintcache
+
+# Other config files
+*.local
+
+# Bower (front-end package manager) directory
+bower_components/
+
+# Miscellaneous
+.sass-cache/
+.parcel-cache/
+

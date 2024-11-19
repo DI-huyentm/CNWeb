@@ -17,14 +17,32 @@ const DB = {
 
 // Including models
 DB.Company = require("./companyModel")(sequelize, DataTypes, Model);
+DB.Province = require("./provinceModel")(sequelize, DataTypes, Model);
 DB.User = require("./userModel")(sequelize, DataTypes, Model);
 DB.Job = require("./jobModel")(sequelize, DataTypes, Model);
+DB.Reaction = require("./reactionModel")(sequelize, DataTypes, Model);
+DB.Bookmark = require("./bookmarkModel")(sequelize, DataTypes, Model);
+DB.JobImage = require("./jobImageModel")(sequelize, DataTypes, Model);
 DB.Apply = require("./applyModel")(sequelize, DataTypes, Model);
 DB.Resume = require("./resumeModel")(sequelize, DataTypes, Model);
+DB.Notification = require("./notificationModel")(sequelize, DataTypes, Model);
 DB.Tag = require("./tagModel")(sequelize, DataTypes, Model);
+DB.ExpectJob = require("./expectJobModel")(sequelize, DataTypes, Model);
 DB.Industry = require("./industryModel")(sequelize, DataTypes, Model);
+DB.Chat = require("./chatModel")(sequelize, DataTypes, Model);
 
 // Associations
+DB.Company.belongsTo(DB.Province, {
+  foreignKey: "province_id",
+});
+
+DB.Province.hasMany(DB.Company, {
+  foreignKey: "province_id",
+});
+
+DB.Job.belongsTo(DB.Province, {
+  foreignKey: "province_id",
+});
 
 DB.Job.belongsTo(DB.Company, {
   foreignKey: "company_id",
@@ -34,6 +52,56 @@ DB.Job.belongsTo(DB.Company, {
 
 DB.Company.hasMany(DB.Job, {
   foreignKey: "company_id",
+});
+
+DB.Reaction.belongsTo(DB.User, {
+  foreignKey: "user_id",
+  onDelete: "CASCADE",
+  onUpdate: "CASCADE",
+});
+
+DB.Reaction.belongsTo(DB.Company, {
+  foreignKey: "company_id",
+  onDelete: "CASCADE",
+  onUpdate: "CASCADE",
+});
+
+DB.User.hasMany(DB.Reaction, {
+  foreignKey: "user_id",
+});
+
+DB.Company.hasMany(DB.Reaction, {
+  foreignKey: "company_id",
+});
+
+DB.Bookmark.belongsTo(DB.User, {
+  foreignKey: "user_id",
+  onDelete: "CASCADE",
+  onUpdate: "CASCADE",
+});
+
+DB.Bookmark.belongsTo(DB.Job, {
+  foreignKey: "job_id",
+  onDelete: "CASCADE",
+  onUpdate: "CASCADE",
+});
+
+DB.User.hasMany(DB.Bookmark, {
+  foreignKey: "user_id",
+});
+
+DB.Job.hasMany(DB.Bookmark, {
+  foreignKey: "job_id",
+});
+
+DB.JobImage.belongsTo(DB.Job, {
+  foreignKey: "job_id",
+  onDelete: "CASCADE",
+  onUpdate: "CASCADE",
+});
+
+DB.Job.hasMany(DB.JobImage, {
+  foreignKey: "job_id",
 });
 
 DB.Apply.belongsTo(DB.Job, {
@@ -92,6 +160,16 @@ DB.Tag.belongsToMany(DB.Job, {
   otherKey: "job_id",
 });
 
+DB.User.hasOne(DB.ExpectJob, {
+  foreignKey: "user_id",
+});
+
+DB.ExpectJob.belongsTo(DB.User, {
+  foreignKey: "user_id",
+  onDelete: "CASCADE",
+  onUpdate: "CASCADE",
+});
+
 DB.Job.belongsToMany(DB.Industry, {
   through: "job_industries",
   foreignKey: "job_id",
@@ -105,6 +183,32 @@ DB.Industry.belongsToMany(DB.Job, {
 });
 
 // Notification and Chat FKs
+
+DB.Notification.belongsTo(DB.User, {
+  foreignKey: "receiver_id",
+  onDelete: "CASCADE",
+  onUpdate: "CASCADE",
+});
+
+DB.Notification.belongsTo(DB.User, {
+  foreignKey: "sender_id",
+  onDelete: "CASCADE",
+  onUpdate: "CASCADE",
+});
+
+DB.Chat.belongsTo(DB.User, {
+  foreignKey: "sender_id",
+  as: "Sender",
+  onDelete: "CASCADE",
+  onUpdate: "CASCADE",
+});
+
+DB.Chat.belongsTo(DB.User, {
+  foreignKey: "receiver_id",
+  as: "Receiver",
+  onDelete: "CASCADE",
+  onUpdate: "CASCADE",
+});
 
 const transactionWrapper = async (callback) => {
   let transaction;

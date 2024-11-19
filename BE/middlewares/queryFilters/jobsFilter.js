@@ -14,6 +14,56 @@ exports.jobsQueryFilter = (req, res, next) => {
         };
         break;
 
+      case "location":
+        sequelizeFilterObject["province_id"] = {
+          [Op.eq]: parseInt(filterObject[prop]),
+        };
+        break;
+
+      case "field":
+        sequelizeFilterObject[prop] = {
+          [Op.like]: `%${filterObject[prop]}%`,
+        };
+        break;
+
+      case "industry":
+        // Filter by industry using association with Industry model
+        sequelizeFilterObject["$Industries.industry$"] = {
+          [Op.like]: `%${filterObject[prop]}%`,
+        };
+        break;
+
+      case "industriesIds":
+        // Filter by industry using association with Industry model
+        sequelizeFilterObject["$Industries.id$"] = {
+          [Op.in]: filterObject[prop].split(","),
+        };
+        break;
+
+      case "workingMethod":
+        sequelizeFilterObject["working_method"] = {
+          [Op.like]: `%${filterObject[prop]}%`,
+        };
+        break;
+
+      case "workingType":
+        sequelizeFilterObject["working_type"] = {
+          [Op.like]: `%${filterObject[prop]}%`,
+        };
+        break;
+
+      case "minSalary":
+        sequelizeFilterObject["min_salary"] = {
+          [Op.gte]: parseInt(filterObject[prop]),
+        };
+        break;
+
+      case "companyId":
+        sequelizeFilterObject["$Company.id$"] = {
+          [Op.eq]: parseInt(filterObject[prop]),
+        };
+        break;
+
       default:
         break;
     }

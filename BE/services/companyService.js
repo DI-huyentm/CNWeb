@@ -62,9 +62,14 @@ class CompanyService {
   }
 
   async getCompanyById(companyId) {
-    return await Company.findByPk(companyId, {
+    const company = await Company.findByPk(companyId, {
       include: [{ model: Reaction }],
     });
+    await resolveS3Urls(company, ["logo", "cover_image"]);
+    return company;
+    // return await Company.findByPk(companyId, {
+    //   include: [{ model: Reaction }],
+    // });
   }
 
   async getCompanyComments(companyId) {

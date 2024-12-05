@@ -7,7 +7,7 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "nodemon index.js"
   },
-  "author": "Lee Bao Anh",
+  "author": "Tran Minh Huyen",
   "license": "ISC",
   "dependencies": {
     "@aws-sdk/client-s3": "^3.550.0",

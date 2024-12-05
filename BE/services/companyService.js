@@ -17,9 +17,18 @@ const resolveS3Urls = require("../utils/s3AWS");
 
 class CompanyService {
   async getAllCompanies() {
-    return await Company.findAll({
+    const companies = await Company.findAll({
       order: [["average_rating", "DESC"]],
     });
+
+    // Resolve S3 URLs for each company
+    await Promise.all(
+      companies.map((company) =>
+        resolveS3Urls(company, ["logo", "cover_image"])
+      )
+    );
+
+    return companies;
   }
 
   async createCompany(companyData) {
